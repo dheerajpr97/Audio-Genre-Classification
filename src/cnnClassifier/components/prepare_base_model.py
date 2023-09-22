@@ -2,14 +2,13 @@ import os
 import urllib.request as request
 import zipfile
 import tensorflow as tf
-import tensorflow.keras as keras
-from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Conv2D, BatchNormalization, Dropout, Flatten, MaxPooling2D, Input, Activation, Dense
+from tensorflow import keras
+from keras import Sequential
+from keras.layers import Conv2D, BatchNormalization, Dropout, Flatten, MaxPooling2D, Input, Activation, Dense
 from cnnClassifier.entity.config_entity import PrepareBaseModelConfig
 from pathlib import Path
 
-class PrepareBaseModel:
-    
+class PrepareBaseModel:    
     def __init__(self, config: PrepareBaseModelConfig):
         self.config = config
         self.input_shape = self.config.params_image_size
@@ -48,10 +47,9 @@ class PrepareBaseModel:
             metrics=["accuracy"]
         )
 
-        self.model.summary()
-        #return self.model       
-
+        self.model.summary()          
         self.save_model(path=self.config.model_path, model=self.model)
+        return self.model  
 
     
     @staticmethod

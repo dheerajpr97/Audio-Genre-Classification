@@ -1,12 +1,18 @@
 artifacts_root: artifacts
 
 
-
 data_ingestion:
   root_dir: artifacts/data_ingestion
   source_path: data/audio-genre-data.zip
   local_data_file: artifacts/data_ingestion/data.zip
   unzip_dir: artifacts/data_ingestion
+
+prepare_data:
+  root_dir: artifacts/prepare_data
+  source_dir: artifacts/data_ingestion/genres_original/
+  target_dir: artifacts/prepare_data/mfcc_5sec_chunks.json
+
+
 
 
 prepare_base_model:
@@ -17,5 +23,11 @@ prepare_base_model:
 prepare_callbacks:
   root_dir: artifacts/prepare_callbacks
   tensorboard_root_log_dir: artifacts/prepare_callbacks/tensorboard_log_dir
-  checkpoint_model_filepath: artifacts/prepare_callbacks/checkpoint_dir/best_model.h5
+  checkpoint_model_filepath: artifacts/prepare_callbacks/checkpoint_dir/best_model
+
+  
+model_training:
+  root_dir: artifacts/model_training
+  data_path: artifacts/prepare_data/mfcc_5sec_chunks.json
+  trained_model_path: artifacts/model_training/model
   

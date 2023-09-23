@@ -15,6 +15,7 @@ class PrepareDataTrainingPipeline:
         music_df = prepare_data.dataframe_create()
         mfcc_df = prepare_data.mfcc_feature_extraction(music_df)
         prepare_data.save_data(mfcc_df)
+        prepare_data.train_val_test_split(mfcc_df)
 
 if __name__ == "__main__":
     try:

@@ -8,11 +8,15 @@ class DataIngestionConfig:
     local_data_file: Path
     unzip_dir: Path
     
+
 @dataclass(frozen=True)
 class PrepareDataConfig:
     root_dir: Path
     source_dir: Path
     target_dir: Path
+    train_data_path: Path
+    test_data_path: Path
+    val_data_path: Path
 
 @dataclass(frozen=True)
 class PrepareBaseModelConfig:
@@ -33,10 +37,12 @@ class PrepareCallbacksConfig:
 @dataclass(frozen=True)
 class TrainingConfig:
     root_dir: Path
+    model_path: Path
     trained_model_path: Path
-    updated_base_model_path: Path
-    training_data: Path
+    train_data_path: Path
+    val_data_path: Path
+    test_data_path: Path
     params_epochs: int
     params_batch_size: int
-    params_is_augmentation: bool
+    params_shuffle: bool
     params_image_size: list

@@ -7,6 +7,7 @@ import zipfile
 from cnnClassifier import logger
 from cnnClassifier.entity.config_entity import PrepareDataConfig
 from pathlib import Path
+from sklearn.model_selection import train_test_split
 
 class PrepareData:
     def __init__(self, config: PrepareDataConfig):
@@ -66,5 +67,24 @@ class PrepareData:
     def save_data(self, df):
         df.to_json(self.config.target_dir, index=False)
         logger.info(f"Data saved at {self.config.target_dir} in JSON format")          
-        
+
+    def train_val_test_split(self, df):
+        self.train_df, self.test_df = train_test_split(
+            df,
+            test_size=0.15,
+            random_state=42
+        )
+        self.train_df, self.val_df = train_test_split(
+            self.train_df,
+            test_size=0.2,
+            random_state=42
+        )
+        self.train_df = self.train_df.reset_index(drop=True)
+        self.val_df = self.val_df.reset_index(drop=True)
+        self.test_df = self.test_df.reset_index(drop=True)
+    
+        self.train_df.to_json(self.config.train_data_path)
+        self.val_df.to_json(self.config.val_data_path)
+        self.test_df.to_json(self.config.test_data_path)
+        logger.info(f"Train, Val, and Test datasets saved at {self.config.target_dir} in JSON format")      
 

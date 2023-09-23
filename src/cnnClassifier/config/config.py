@@ -4,7 +4,9 @@ from cnnClassifier.utils.common import read_yaml, create_directories
 from cnnClassifier.entity.config_entity import (DataIngestionConfig,
                                                 PrepareDataConfig,
                                                 PrepareBaseModelConfig,
-                                                PrepareCallbacksConfig)
+                                                PrepareCallbacksConfig,
+                                                TrainingConfig
+                                                )
 
 class ConfigurationManager:
     def __init__(
@@ -42,6 +44,9 @@ class ConfigurationManager:
             root_dir=config.root_dir,
             source_dir=config.source_dir,
             target_dir=config.target_dir,
+            train_data_path=config.train_data_path,
+            test_data_path=config.test_data_path,
+            val_data_path=config.val_data_path
         )
 
         return prepare_data_config
@@ -78,3 +83,27 @@ class ConfigurationManager:
         )
 
         return prepare_callback_config
+    
+    def get_training_config(self) -> TrainingConfig:
+        model_training = self.config.model_training
+        prepare_base_model = self.config.prepare_base_model
+        prepare_data = self.config.prepare_data
+        params = self.params
+        create_directories([
+            Path(model_training.root_dir)
+        ])
+
+        training_config = TrainingConfig(
+            root_dir=Path(model_training.root_dir),
+            model_path=Path(prepare_base_model.model_path),
+            trained_model_path=Path(model_training.trained_model_path),
+            train_data_path=Path(prepare_data.train_data_path), 
+            test_data_path=Path(prepare_data.test_data_path),
+            val_data_path=Path(prepare_data.val_data_path),     
+            params_epochs=params.EPOCHS,
+            params_batch_size=params.BATCH_SIZE,
+            params_shuffle=params.SHUFFLE,
+            params_image_size=params.IMAGE_SIZE
+        )
+
+        return training_config

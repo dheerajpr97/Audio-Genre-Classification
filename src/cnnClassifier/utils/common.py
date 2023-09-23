@@ -9,6 +9,11 @@ from box import ConfigBox
 from pathlib import Path
 from typing import Any
 import base64
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from tensorflow.keras.utils import to_categorical
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
@@ -133,3 +138,46 @@ def decodeImage(imgstring, fileName):
 def encodeImageIntoBase64(croppedImagePath):
     with open(croppedImagePath, "rb") as f:
         return base64.b64encode(f.read())
+    
+
+class MFCCDataGenerator(tf.keras.utils.Sequence): 
+    def __init__(self, dataframe, batch_size=32, shuffle=True):
+        self.dataframe = dataframe # dataframe with the mfcc features and the genre
+        self.batch_size = batch_size 
+        self.shuffle = shuffle
+        self.num_classes = len(dataframe['genre'].unique()) # number of classes
+        
+        self.label_encoder = LabelEncoder() 
+        self.label_encoder.fit(dataframe['genre']) # encode the genre labels
+        
+        self.scaler = StandardScaler() # standardize the mfcc features
+        self.scaler.fit(np.concatenate(dataframe['MFCC features']))
+        
+        self.indexes = np.arange(len(dataframe))
+        
+        if self.shuffle:
+            np.random.shuffle(self.indexes)
+    
+    def __len__(self):
+        return int(np.ceil(len(self.dataframe) / self.batch_size)) # number of batches
+    
+    def __getitem__(self, index):
+        batch_indexes = self.indexes[index * self.batch_size : (index + 1) * self.batch_size]
+        
+        batch_data = self.dataframe.iloc[batch_indexes]
+        
+        X, y = self.__data_generation(batch_data)
+        return X, y
+    
+    def __data_generation(self, batch_data):
+        mfcc_features = batch_data['MFCC features'].apply(lambda x: self.scaler.transform(x)).tolist() # standardize the mfcc features
+        mfcc_features = np.array(mfcc_features).reshape(-1, mfcc_features[0].shape[0], mfcc_features[0].shape[1], 1) 
+       
+        genre_labels = self.label_encoder.transform(batch_data['genre'])
+        genre_one_hot =  to_categorical(genre_labels, num_classes=self.num_classes)
+        
+        return mfcc_features, genre_one_hot
+    
+    def on_epoch_end(self):
+        if self.shuffle:
+            np.random.shuffle(self.indexes)

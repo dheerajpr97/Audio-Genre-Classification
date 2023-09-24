@@ -1,0 +1,67 @@
+stages:
+  data_ingestion:
+    cmd: python src/cnnClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+      - src/cnnClassifier/pipeline/stage_01_data_ingestion.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/genres_original
+
+  prepare_data:
+    cmd: python src/cnnClassifier/pipeline/stage_02_prepare_data.py
+    deps:
+      - src/cnnClassifier/pipeline/stage_02_prepare_data.py
+      - artifacts/data_ingestion/genres_original
+      - config/config.yaml
+    outs:
+      - artifacts/prepare_data/train_data.json
+      - artifacts/prepare_data/test_data.json
+      - artifacts/prepare_data/val_data.json
+      - artifacts/prepare_data/mfcc_5sec_chunks.json
+
+
+  prepare_base_model:
+    cmd: python src/cnnClassifier/pipeline/stage_03_prepare_base_model.py
+    deps:
+      - src/cnnClassifier/pipeline/stage_03_prepare_base_model.py
+      - config/config.yaml
+    params:
+      - IMAGE_SIZE
+      - CLASSES
+      - LEARNING_RATE
+    outs:
+      - artifacts/prepare_base_model/model.h5
+
+
+  training:
+    cmd: python src/cnnClassifier/pipeline/stage_04_train_model.py
+    deps:
+      - src/cnnClassifier/pipeline/stage_04_train_model.py
+      - src/cnnClassifier/components/prepare_callbacks.py
+      - config/config.yaml
+      - artifacts/prepare_data/train_data.json
+      - artifacts/prepare_data/test_data.json
+      - artifacts/prepare_data/val_data.json
+      - artifacts/prepare_base_model/model.h5
+    params:
+      - IMAGE_SIZE
+      - EPOCHS
+      - BATCH_SIZE
+      - SHUFFLE
+    outs:
+      - artifacts/model_training/model.h5
+  
+
+  evaluation:
+    cmd: python src/cnnClassifier/pipeline/stage_05_evaluation.py
+    deps:
+      - src/cnnClassifier/pipeline/stage_05_evaluation.py
+      - config/config.yaml
+      - artifacts/prepare_data/test_data.json
+      - artifacts/model_training/model.h5
+    params:
+      - IMAGE_SIZE
+      - BATCH_SIZE
+    metrics:
+    - scores.json:
+        cache: false

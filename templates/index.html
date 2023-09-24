@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<title>Audio Genre Classification </title>
+
+<h1> Audio Genre Classification </h1>
+<h3> By Dheeraj </h3>
+
+<p style="word-wrap: break-word; width: 900px">
+    This web app uses a neural network to predict the genre of a song you upload.
+    The network can predict one of ten genres:
+    pop, metal, disco, blues, reggae, classical, rock, hip-hop, country, and jazz. 
+    <br>
+    <br> 
+    To use it, select a music file from your computer to be 
+    fed into the genre classifier, and then click the Predict button below. 
+    This app currently supports .wav audio extensions.
+	
+</p>
+
+<br>
+<form action="{{ url_for('predict')}}" method="post"  enctype="multipart/form-data">
+    <input type="file" name="UploadedAudio" accept=".wav"/>
+
+    <button type="submit", class="btn"> Predict </button>
+</form>
+<br>
+<br>
+
+{{ prediction_text }}
+
+<br>
+<br>
+<br>

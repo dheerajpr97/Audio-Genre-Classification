@@ -18,26 +18,26 @@ class PrepareBaseModel:
     #@staticmethod    
     def prepare_model(self):
         self.model = Sequential()
-        self.model.add(keras.layers.Conv2D(32, (2, 2), activation='relu', input_shape=self.input_shape, kernel_initializer = 'he_normal'))
+        self.model.add(keras.layers.Conv2D(32, (2, 2), activation='relu', input_shape=self.input_shape))
         self.model.add(keras.layers.MaxPooling2D((3, 3), strides=(2, 2), padding='same'))
         self.model.add(keras.layers.BatchNormalization())
 
         # 2nd conv layer
-        self.model.add(keras.layers.Conv2D(32, (2, 2), activation='relu', kernel_initializer = 'he_normal'))
+        self.model.add(keras.layers.Conv2D(32, (2, 2), activation='relu'))
         self.model.add(keras.layers.MaxPooling2D((3, 3), strides=(2, 2), padding='same'))
         self.model.add(keras.layers.BatchNormalization())
 
         # 3rd conv layer
-        self.model.add(keras.layers.Conv2D(32, (2, 2), activation='relu', kernel_initializer = 'he_normal'))
+        self.model.add(keras.layers.Conv2D(32, (2, 2), activation='relu'))
         self.model.add(keras.layers.MaxPooling2D((2, 2), strides=(2, 2), padding='same'))
         self.model.add(keras.layers.BatchNormalization())
 
         # flatten output and feed it into dense layer
         self.model.add(keras.layers.Flatten())
-        self.model.add(keras.layers.Dense(128, activation='relu', kernel_initializer = 'he_normal'))
-        self.model.add(keras.layers.Dropout(0.5))
-        self.model.add(keras.layers.Dense(64, activation='relu', kernel_initializer = 'he_normal'))
-        self.model.add(keras.layers.Dropout(0.5))
+        #self.model.add(keras.layers.Dense(128, activation='relu', kernel_initializer = 'he_normal'))
+        #self.model.add(keras.layers.Dropout(0.5))
+        self.model.add(keras.layers.Dense(64, activation='relu'))
+        self.model.add(keras.layers.Dropout(0.3))
         # output layer
         self.model.add(keras.layers.Dense(self.num_classes, activation='softmax'))
         

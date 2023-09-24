@@ -17,7 +17,7 @@ stages:
       - artifacts/prepare_data/train_data.json
       - artifacts/prepare_data/test_data.json
       - artifacts/prepare_data/val_data.json
-      - artifacts/prepare_data/mfcc_5sec_chunks.json
+      - artifacts/prepare_data/mfcc_3sec_chunks.json
 
 
   prepare_base_model:

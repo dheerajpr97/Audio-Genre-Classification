@@ -134,6 +134,11 @@ def decodeImage(imgstring, fileName):
         f.write(imgdata)
         f.close()
 
+def decodeAudio(audiostring, fileName):
+    audiodata = base64.b64decode(audiostring)
+    with open(fileName, 'wb') as f:
+        f.write(audiodata)
+        f.close()
 
 def encodeImageIntoBase64(croppedImagePath):
     with open(croppedImagePath, "rb") as f:

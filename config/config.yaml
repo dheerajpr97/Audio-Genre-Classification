@@ -9,7 +9,7 @@ data_ingestion:
 prepare_data:
   root_dir: artifacts/prepare_data
   source_dir: artifacts/data_ingestion/genres_original/
-  target_dir: artifacts/prepare_data/mfcc_5sec_chunks.json
+  target_dir: artifacts/prepare_data/mfcc_3sec_chunks.json
   train_data_path: artifacts/prepare_data/train_data.json
   test_data_path: artifacts/prepare_data/test_data.json
   val_data_path: artifacts/prepare_data/val_data.json  

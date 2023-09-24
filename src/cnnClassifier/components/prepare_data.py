@@ -38,13 +38,13 @@ class PrepareData:
 
         for index, row in df.iterrows():
             signal, sr = librosa.load(row['file'], sr=22050)
-            if len(signal) > 661500:
+            if len(signal) > (661500):
                 signal = signal[0:661500]
             else:
                 signal = np.pad(signal, (0, 661500 - signal.shape[0]), 'wrap')
                 
             # Calculate the duration of each chunk
-            chunk_duration = 5  # seconds
+            chunk_duration = 3  # seconds
             # Calculate the number of samples in each chunk
             chunk_samples = int(chunk_duration * sr)
             # Calculate the total number of chunks
@@ -71,7 +71,7 @@ class PrepareData:
     def train_val_test_split(self, df):
         self.train_df, self.test_df = train_test_split(
             df,
-            test_size=0.15,
+            test_size=0.1,
             random_state=42
         )
         self.train_df, self.val_df = train_test_split(

@@ -13,3 +13,4 @@
 8. Update the main.py
 9. Update the dvc.yaml
 
+ECR Repo: 925304758738.dkr.ecr.eu-north-1.amazonaws.com/audio-genre-classification

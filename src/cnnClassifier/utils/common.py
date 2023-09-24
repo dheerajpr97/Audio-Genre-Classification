@@ -12,8 +12,9 @@ import base64
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+from tensorflow import keras
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-from tensorflow.keras.utils import to_categorical
+from keras.utils import to_categorical
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:

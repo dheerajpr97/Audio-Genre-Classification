@@ -22,7 +22,8 @@ class PrepareCallback:
     def _create_ckpt_callbacks(self):
         return keras.callbacks.ModelCheckpoint(
             filepath=self.config.checkpoint_model_filepath,
-            save_best_only=True
+            save_best_only=True,
+            
         )
 
 

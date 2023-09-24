@@ -46,3 +46,11 @@ class TrainingConfig:
     params_batch_size: int
     params_shuffle: bool
     params_image_size: list
+
+@dataclass(frozen=True)
+class EvaluationConfig:
+    model_path: Path
+    test_data_path: Path
+    all_params: dict
+    params_image_size: list
+    params_batch_size: int

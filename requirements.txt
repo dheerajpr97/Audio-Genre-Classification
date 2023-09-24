@@ -6,7 +6,7 @@ numpy
 matplotlib
 seaborn
 librosa
-sklearn
+scikit-learn
 python-box==6.0.2
 pyYAML
 tqdm

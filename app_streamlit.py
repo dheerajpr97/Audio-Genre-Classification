@@ -13,11 +13,13 @@ class ClientApp:
     def __init__(self):
         pass
         
-# Function to predict the genre of the audio file uploaded by the user passed as an argument to the PredictionPipeline class
+
 def predict(audio):
     '''
     Function to predict the genre of the audio file uploaded by the user passed as an argument to the PredictionPipeline class
+
     Input: audio file
+
     Output: predicted genre
     '''    
     classifier = PredictionPipeline(audio)
@@ -26,6 +28,16 @@ def predict(audio):
     return result
 
 def main():
+    '''
+    Function to display the streamlit app
+
+    Input: None
+
+    Output: None
+
+    
+    '''
+
     #st.title("Audio Genre Classifier")
     html_temp = """
     <div style="background-color:tomato;padding:10px">

@@ -13,20 +13,6 @@
 8. Update the main.py
 9. Update the dvc.yaml
 
-ECR Repo: 925304758738.dkr.ecr.eu-north-1.amazonaws.com/audio-genre-classification
+ECR Repo: 925304758738.dkr.ecr.eu-north-1.amazonaws.com/agcapp
 
 
-# AZURE-CICD-Deployment-with-Github-Actions
-
-## Save pass:
-
-jkb9HFDzOf6ZhMKIzUJTH1pcLayqQrpyd9HhrkUXoq+ACRAJcqcW
-
-
-## Run from terminal:
-
-docker build -t agcapp.azurecr.io/agc:latest .
-
-docker login agcapp.azurecr.io
-
-docker push agcapp.azurecr.io/agc:latest

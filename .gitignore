@@ -163,3 +163,5 @@ artifacts/*
 data/*
 test_audios/*
 keys/*
+#.github/*
+```

@@ -52,5 +52,5 @@ class PredictionPipeline:
         result_idx = int(np.bincount(result).argmax())
         for key, value in self.genre_dict.items():
             if value == result_idx:
-                return [{"audio": key}]
+                return str(key)
                                         

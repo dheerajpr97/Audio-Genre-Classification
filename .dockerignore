@@ -5,6 +5,6 @@ artifacts/prepare_callbacks/*
 logs
 keys
 LICENSE
-README.md
+#README.md
 data/*
 research/*

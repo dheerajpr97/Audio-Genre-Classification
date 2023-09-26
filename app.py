@@ -37,13 +37,13 @@ def predict():
     # random string of digits for file name
     file_name = str(random.randint(0, 100000))
 
-    # save the file locally
     audio.save(file_name)
     
     classifier = PredictionPipeline(file_name)
     result = classifier.predict()
     
     os.remove(file_name)
+    
     # message to be displayed on the html webpage
     prediction_message = f"""
     The song is predicted to be in the {result} genre.

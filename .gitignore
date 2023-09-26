@@ -159,7 +159,11 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-artifacts/*
+#artifacts/*
+artifacts/data_ingestion/*
+artifacts/prepare_data/*
+artifacts/prepare_base_model/*
+artifacts/prepare_callbacks/*
 data/*
 test_audios/*
 keys/*

@@ -168,5 +168,7 @@ data/*
 test_audios/*
 keys/*
 research/*
+logs/*
+
 #.github/*
 ```

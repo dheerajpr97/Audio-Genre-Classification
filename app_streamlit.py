@@ -34,7 +34,6 @@ def main():
     Input: None
 
     Output: None
-
     
     '''
 
@@ -46,7 +45,7 @@ def main():
     """
 
     st.markdown(html_temp, unsafe_allow_html=True)
-    audio_file = st.file_uploader("Upload Audio", type=['wav'])
+    audio_file = st.file_uploader("Upload Audio", type=['mp3', 'wav'])
     if audio_file is not None:
         st.success("File Uploaded Successfully")
         if st.button("Predict"):

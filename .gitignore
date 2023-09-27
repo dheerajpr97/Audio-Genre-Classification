@@ -167,5 +167,6 @@ artifacts/prepare_callbacks/*
 data/*
 test_audios/*
 keys/*
+research/*
 #.github/*
 ```

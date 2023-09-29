@@ -166,7 +166,6 @@ artifacts/prepare_base_model/*
 artifacts/prepare_callbacks/*
 data/*
 test_audios/*
-keys/*
 research/*
 logs/*
 
